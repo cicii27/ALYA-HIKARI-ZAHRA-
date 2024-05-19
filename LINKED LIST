@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+
+// Definisi struktur untuk Node
+struct Node {
+    int bookID;
+    string bookTitle;
+    Node* next;
+};
+
+// Fungsi untuk menambah buku di awal linked list
+void addBook(Node*& head, int id, string title) {
+    Node* newNode = new Node;
+    newNode->bookID = id;
+    newNode->bookTitle = title;
+    newNode->next = head;
+    head = newNode;
+}
+
+// Fungsi untuk menampilkan semua buku dalam linked list
+void displayBooks(Node* head) {
+    Node* current = head;
+    while (current != NULL) {
+        cout << "Book ID: " << current->bookID << ", Title: " << current->bookTitle << endl;
+        current = current->next;
+    }
+}
+
+// Fungsi untuk menghapus buku berdasarkan ID
+void removeBook(Node*& head, int id) {
+    Node* current = head;
+    Node* previous = NULL;
+
+    // Jika buku yang ingin dihapus adalah head
+    if (current != NULL && current->bookID == id) {
+        head = current->next; // Pindahkan head
+        delete current; // Hapus node
+        return;
+    }
+
+    // Mencari buku yang ingin dihapus
+    while (current != NULL && current->bookID != id) {
+        previous = current;
+        current = current->next;
+    }
+
+    // Jika buku tidak ditemukan
+    if (current == NULL) return;
+
+    // Menghapus node
+    previous->next = current->next;
+    delete current;
+}
+
+int main() {
+    Node* head = NULL;
+
+    // Menambahkan beberapa buku
+    addBook(head, 1, "Bandit Berkelas");
+    addBook(head, 2, "Ceros dan Batozar");
+    addBook(head, 3, "Bumi");
+
+    cout << "Daftar Buku di Perpustakaan:" << endl;
+    displayBooks(head);
+
+    cout << "\nMenghapus buku dengan ID 2" << endl;
+    removeBook(head, 2);
+
+    cout << "Daftar Buku di Perpustakaan setelah penghapusan:" << endl;
+    displayBooks(head);
+
+    return 0;
+}
