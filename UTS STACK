@@ -1,0 +1,63 @@
+#include <iostream> 
+#include <vector>   
+
+class BookStack {
+private: 
+    std::vector<std::string> stack; 
+
+public: 
+    void push(const std::string& book) {
+        stack.push_back(book); 
+        std::cout << "Book \"" << book << "\" added to the stack.\n"; 
+    }
+
+    
+    void pop() {
+        if (stack.empty()) { 
+            std::cout << "Stack is empty. No book to remove.\n"; 
+            return; 
+        }
+        std::string book = stack.back(); 
+        stack.pop_back(); 
+        std::cout << "Book \"" << book << "\" removed from the stack.\n"; 
+    }
+
+   
+    void peek() const {
+        if (stack.empty()) { 
+            std::cout << "Stack is empty. No book on top.\n"; 
+            return; 
+        }
+        std::cout << "Top book is \"" << stack.back() << "\".\n"; 
+    }
+
+    
+    bool isEmpty() const {
+        return stack.empty(); 
+    }
+};
+
+int main() {
+    BookStack bookStack; 
+
+    
+    bookStack.push("The Great Gatsby"); 
+    bookStack.push("1984"); 
+    bookStack.push("To Kill a Mockingbird"); 
+
+    
+    bookStack.peek();
+
+    
+    bookStack.pop(); 
+    bookStack.pop(); 
+
+    
+    if (bookStack.isEmpty()) {
+        std::cout << "The book stack is now empty.\n"; 
+    } else { 
+        bookStack.peek(); 
+    }
+
+    return 0; 
+}
